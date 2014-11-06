@@ -32,11 +32,12 @@ fi
 if [[ ! -f "$INITIALIZED_FILE" ]]; then
     mkdir -p "/opt/postgresql/$POSTGRESQL_VERSION/main"
     chown -R postgres:postgres "/opt/postgresql/$POSTGRESQL_VERSION/main"
-    su postgres -c "$PGPATH/initdb -D $PGDATA" 
+    su postgres -c "$PGPATH/initdb -D $PGDATA"
     su postgres -c "$PGPATH/postgres --single -D $PGDATA" <<EOF
 CREATE USER root WITH SUPERUSER PASSWORD '$DB_PASSWORD';
 CREATE DATABASE root OWNER root;
 EOF
+    echo 'host all all 0.0.0.0/0 md5' >> /opt/postgresql/9.3/main/pg_hba.conf
     touch "$INITIALIZED_FILE"
 fi
 
