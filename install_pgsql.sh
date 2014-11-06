@@ -19,7 +19,7 @@ apt-get install -y -q \
     postgresql-contrib-$POSTGRESQL_VERSION \
     postgis postgresql-$POSTGRESQL_VERSION-postgis-2.1 \
     postgresql-$POSTGRESQL_VERSION-pgextwlist
-echo 'host all all 0.0.0.0/0 md5' >> /etc/postgresql/9.3/main/pg_hba.conf
+echo 'host all all 0.0.0.0/0 md5' >> /opt/postgresql/9.3/main/pg_hba.conf
 rm -rf /var/lib/apt/lists/
 apt-get clean
 rm /usr/sbin/policy-rc.d
