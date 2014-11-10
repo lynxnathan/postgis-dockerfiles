@@ -38,6 +38,14 @@ CREATE USER root WITH SUPERUSER PASSWORD '$DB_PASSWORD';
 CREATE DATABASE root OWNER root;
 EOF
     echo 'host all all 0.0.0.0/0 md5' >> /opt/postgresql/9.3/main/pg_hba.conf
+    sudo service postgresql start
+    su postgres -c 'psql -d root -f /usr/share/postgresql/9.3/contrib/postgis-2.1/postgis.sql'
+    su postgres -c 'psql -d root -f /usr/share/postgresql/9.3/contrib/postgis-2.1/spatial_ref_sys.sql'
+    su postgres -c 'psql -d root -f /usr/share/postgresql/9.3/contrib/postgis-2.1/postgis_comments.sql'
+    su postgres -c 'psql -d root -c "GRANT SELECT ON spatial_ref_sys TO PUBLIC;"'
+    su postgres -c 'psql -d root -c "GRANT ALL ON geometry_columns TO root;"'
+    su postgres -c 'psql -d root -c "CREATE EXTENSION fuzzystrmatch;"'
+    sudo service postgresql stop
     touch "$INITIALIZED_FILE"
 fi
 
