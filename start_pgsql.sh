@@ -43,7 +43,7 @@ EOF
     su postgres -c 'psql -d root -f /usr/share/postgresql/9.3/contrib/postgis-2.1/spatial_ref_sys.sql'
     su postgres -c 'psql -d root -f /usr/share/postgresql/9.3/contrib/postgis-2.1/postgis_comments.sql'
     su postgres -c 'psql -d root -c "GRANT SELECT ON spatial_ref_sys TO PUBLIC;"'
-    su postgres -c 'psql -d root -c "GRANT ALL ON geometry_columns TO root;"'
+    su postgres -c 'psql -d root -c "GRANT ALL ON geometry_columns TO PUBLIC;"'
     su postgres -c 'psql -d root -c "CREATE EXTENSION fuzzystrmatch;"'
     sudo service postgresql stop
     touch "$INITIALIZED_FILE"
